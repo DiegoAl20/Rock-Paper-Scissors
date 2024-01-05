@@ -1,3 +1,14 @@
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissor = document.getElementById("scissor");
+
+const playerText = document.querySelector(".player");
+const computerText = document.querySelector(".computer");
+let playerScore = 0;
+let computerScore = 0;
+
+const infoText = document.querySelector(".info-text");
+
 const options = ["piedra", "papel", "tijeras"];
 
 function getComputerChoice() {
@@ -5,36 +16,78 @@ function getComputerChoice() {
     return options[computerSelection]; 
 }
 
-function playerSelection() {
-    const playerSelection = prompt("Escriba su opción: (piedra, papel o tijeras)");
-    return playerSelection.toLowerCase();
+rock.addEventListener('click', () => {
+    playRound("piedra", getComputerChoice());
+});
+
+paper.addEventListener('click', () => {
+    playRound("papel", getComputerChoice())
+});
+
+scissor.addEventListener('click', () => {
+    playRound("tijeras", getComputerChoice())
+});
+
+function winner(playerScore, computerScore) {
+    if (Number(playerScore) == 5) {
+        infoText.textContent = "El ganador es: Player"
+        playerText.textContent = "player: 0";
+        computerText.textContent = "computer: 0";
+        playerScore = 0;
+        computerScore = 0;
+        return;
+    } else if (Number(computerScore) == 5) {
+        infoText.textContent = "El ganador es: Computer"
+        playerText.textContent = "player: 0";
+        computerText.textContent = "computer: 0";
+        playerScore = 0;
+        computerScore = 0;
+        return;
+    }
 }
 
 function playRound(playerSelection, computerSelection) {
 
+    if (Number(playerScore) == 5 || Number(computerScore) == 5) {
+        return winner(playerScore, computerScore);
+    }
+        
     if (playerSelection === "tijeras" && computerSelection === "papel") {
-        return console.log("¡Ganaste! Tijeras cortan papel");
+        infoText.textContent = "¡Ganaste! Tijeras cortan papel";
+        playerScore++;
+        playerText.textContent = `player: ${playerScore}`;
+        return;
     } else if (playerSelection === "tijeras" && computerSelection === "piedra") {
-        return console.log("¡Perdiste! piedra aplasta tijeras ")
+        infoText.textContent = "¡Perdiste! piedra aplasta tijeras";
+        computerScore++;
+        computerText.textContent = `computer: ${computerScore}`
+        return;
     } 
 
     if (playerSelection === "papel" && computerSelection === "piedra") {
-        return console.log("¡Ganaste! papel envuelve piedra");
+        infoText.textContent = "¡Ganaste! papel envuelve piedra";
+        playerScore++;
+        playerText.textContent = `player: ${playerScore}`;
+        return;
     } else if (playerSelection === "papel" && computerSelection === "tijeras") {
-        return console.log("¡Perdiste! tijeras cortan papel");
+        infoText.textContent = "¡Perdiste! tijeras cortan papel";
+        computerScore++;
+        computerText.textContent = `computer: ${computerScore}`;
+        return;
     }
 
     if (playerSelection === "piedra" && computerSelection === "tijeras") {
-        return console.log("¡Ganaste! piedra aplasta tijeras");
+        infoText.textContent = "¡Ganaste! piedra aplasta tijeras";
+        playerScore++;
+        playerText.textContent = `player: ${playerScore}`;
+        return;
     } else if (playerSelection === "piedra" && computerSelection === "papel") {
-        return console.log("¡Perdiste! papel envuelve piedra");
+        infoText.textContent = "¡Perdiste! papel envuelve piedra";
+        computerScore++;
+        computerText.textContent = `computer: ${computerScore}`;
+        return;
     } 
 
-    return console.log("¡Empate!");
+    infoText.textContent = "¡Empate!";
+    return;
 }
-
-function game() {
-    
-}
-
-//game();
