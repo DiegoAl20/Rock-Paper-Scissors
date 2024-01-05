@@ -34,9 +34,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    for (let i = 1; i <= 5; i++) {
-        playRound(playerSelection(), getComputerChoice());
-    }
+    
 }
 
-game();
+//game();
